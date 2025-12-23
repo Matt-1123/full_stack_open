@@ -27,3 +27,30 @@ data.forEach(function(note) {
 
 ### Single Page Applications
 >In recent years, the Single-page application (SPA) style of creating web applications has emerged. SPA-style websites don't fetch all of their pages separately from the server like our sample application does, but instead comprise only one HTML page fetched from the server, the contents of which are manipulated with JavaScript that executes in the browser.
+
+### Sequence Diagrams
+https://www.geeksforgeeks.org/system-design/unified-modeling-language-uml-sequence-diagrams/
+>Sequence diagrams are a type of UML (Unified Modeling Language) diagram that visually represent the interactions between objects or components in a system over time. They focus on the order and timing of messages or events exchanged between different system elements. The diagram captures how objects communicate with each other through a series of messages, providing a clear view of the sequence of operations or processes.
+
+* __Actors__ are humans or other external subjects who interact with the system and its objects. Actors are always outside the scope of the system. Sequence diagrams can have multiple actors.
+a outside the sequence diagram
+* __Lifelines__ are named elements which depict individual participants in a sequence diagram. 
+  * A lifeline always portrays an object internal to the system whereas actors are used to depict objects external to the system. 
+  * We display a lifeline in a rectangle called head with its name and type. The head is located on top of a vertical dashed line (referred to as the stem) as shown above. 
+  ![Sequence Diagram Lifelines](./img/sequence-diagram-lifelines.jpg)
+* __Messages__ - Communication between objects is depicted using messages. The messages appear in a sequential order on the lifeline.
+  * We represent messages using arrows.
+  * Lifelines and messages form the core of a sequence diagram. 
+  * See link above for types of messages
+  ![Sequence Diagram Messages](./img/sequence-diagram-messages.jpg)
+* Sequence diagram example:
+![Sequence Diagram example](./img/sequence-diagram-example.jpg)
+  - Firstly the application is opened by the user.
+  - The device then gets access to the web cam.
+  - The webcam captures the image of the user.
+  - The device uses algorithms to detect the face and predict the mood.
+  - It then requests database for dictionary of possible moods.
+  - The mood is retrieved from the database.
+  - The mood is displayed to the user.
+  - The music is requested from the database.
+  - The playlist is generated and finally shown to the user.
