@@ -1,4 +1,4 @@
-## 0.5
+## 0.5: Single page app diagram
 Create a diagram depicting the situation where the user goes to the single-page app version of the notes app at https://studies.cs.helsinki.fi/exampleapp/spa.
 
 ``` mermaid
@@ -28,5 +28,5 @@ Create a diagram depicting the situation where the user goes to the single-page 
     server-->>browser: Notes JSON data
     deactivate server
 
-    Note right of browser: The browser executes the callback function that renders the notes as <li> elements using the DOM API
+    Note right of browser: The browser executes the callback function (onreadystatechange event handler) that renders the notes as <li> elements using the DOM API
 ```
