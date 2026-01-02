@@ -38,3 +38,10 @@ const App = () => {
 
 >In React, the individual things rendered in braces must be primitive values, such as numbers or strings.
 
+Total time for reading: 30 minutes
+
+### Exercise 1.1: Course Information, step 1
+Total time: 30 minutes
+
+### Exercise 1.2: Course Information, step 2
+Total time: 15 minutes
