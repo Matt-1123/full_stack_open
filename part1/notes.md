@@ -202,3 +202,10 @@ const App = (props) => {
 ```
 
 >Choosing between the two presented ways of defining your event handlers is mostly a matter of taste.
+
+Total time spent on part 1d lecture material: 1 hour
+
+## Part 1d exercices
+* 1.6: unicafe step 1 => 40 minutes
+* 1.7: unicafe step 2
+
