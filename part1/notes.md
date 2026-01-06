@@ -207,5 +207,8 @@ Total time spent on part 1d lecture material: 1 hour
 
 ## Part 1d exercices
 * 1.6: unicafe step 1 => 40 minutes
-* 1.7: unicafe step 2
+* 1.7: unicafe step 2 => 15 minutes
+* 1.8: unicafe step 3 => 5 minutes
+* 1.9: unicafe step 4 => 5 minutes
+* 1.10: unicafe step 5 => 
 
