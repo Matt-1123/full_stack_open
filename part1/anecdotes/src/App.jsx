@@ -33,14 +33,23 @@ const App = () => {
     setVotes(votesCopy)
   }
 
+  const mostVotedAnecdoteIndex = Object.keys(votes).reduce((maxIndex, currentIndex) => {
+    return votes[currentIndex] > votes[maxIndex] ? currentIndex : maxIndex
+  }, '0')
+
   return (
     <>
       <div>
+        <h2>Anecdote of the day</h2>
         <p>"{anecdotes[selected]}"</p>
         <p>Total votes: {votes[selected]}</p>
+        <button onClick={handleVote}>vote</button>
+        <button onClick={handleNextAnecdote}>next anecdote</button>
       </div>
-      <button onClick={handleVote}>vote</button>
-      <button onClick={handleNextAnecdote}>next anecdote</button>
+      <div>
+        <h2>Anecdotes with most votes</h2>
+        <p>"{anecdotes[mostVotedAnecdoteIndex]}"</p>
+      </div>
     </>
   )
 }
