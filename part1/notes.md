@@ -212,4 +212,9 @@ Total time spent on part 1d lecture material: 1 hour
 * 1.9: unicafe step 4 => 5 minutes
 * 1.10: unicafe step 5 => 15 minutes
 * 1.11: unicafe step 6 => 20 minutes
+* 1.12 - 1.14: anecdotes step 1 - 3 => 50 minutes
+* ---
+* Total time: 130 minutes
 
+## Total time spent on Part 1: 
+5 hours
