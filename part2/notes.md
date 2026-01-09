@@ -19,3 +19,4 @@
 * Reading: 30 minutes
 * Exercises
     * 2.1: 30 minutes
+    * 2.2 - 2.5: 30 minutes
