@@ -27,5 +27,5 @@
   * 2.6: The Phonebook Step 1: 20 minutes
   * 2.7: The Phonebook Step 2: 5 minutes
   * 2.8: The Phonebook Step 3: 20 minutes
-  * 2.9: The Phonebook Step 4: 
+  * 2.9: The Phonebook Step 4: 30 minutes
   * 2.10: The Phonebook Step 5: 
