@@ -20,6 +20,7 @@
 * Exercises
     * 2.1: 30 minutes
     * 2.2 - 2.5: 30 minutes
+* Total: 90 minutes
 
 ### Total times, part 2b
 * Reading: 20 minutes
@@ -28,4 +29,5 @@
   * 2.7: The Phonebook Step 2: 5 minutes
   * 2.8: The Phonebook Step 3: 20 minutes
   * 2.9: The Phonebook Step 4: 30 minutes
-  * 2.10: The Phonebook Step 5: 
+  * 2.10: The Phonebook Step 5: 20 minutes
+* Total: 115 minutes
