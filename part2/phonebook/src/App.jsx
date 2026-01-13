@@ -1,8 +1,8 @@
-import axios from 'axios'
 import { useEffect, useState } from 'react'
 import PersonForm from './components/PersonForm'
 import Persons from './components/Persons'
 import Search from './components/Search'
+import personsService from './services/persons'
 
 const App = () => {
   const [persons, setPersons] = useState([]) 
@@ -11,12 +11,12 @@ const App = () => {
   const [filterNames, setFilterNames] = useState('')
 
   useEffect(() => {
-    axios 
-      .get('http://localhost:3001/persons')
-      .then(res => {
-        setPersons(res.data)
-      })
-  }, [])
+      personsService
+        .getAll()
+        .then(initialPersons => {
+          setPersons(initialPersons)
+        })
+    }, [])
 
   const handleFilterNames = e => setFilterNames(e.target.value)
   
@@ -37,11 +37,16 @@ const App = () => {
       name: newName,
       number: newNumber
     }
-    setPersons(persons.concat(nameObject))
+    // setPersons(persons.concat(nameObject))
 
-    // reset values of controlled input element
-    setNewName('') 
-    setNewNumber('')
+    personsService
+      .create(nameObject)
+      .then(returnedPerson => {
+        setPersons(persons.concat(returnedPerson))
+        // reset values of controlled input element
+        setNewName('') 
+        setNewNumber('')
+      })
   }
 
   // Filter persons based on the filterNames input

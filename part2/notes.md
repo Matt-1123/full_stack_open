@@ -163,3 +163,11 @@ axios
   })
 ```
 >If the request fails, the event handler registered with the catch method gets called.
+
+### Total times, part 2d
+* Reading: 90 minutes
+* Exercises
+  * 2.12: The Phonebook Step 7 => 20 minutes
+  * 2.13: The Phonebook Step 8 => 
+  * 2.14: The Phonebook Step 9 => 
+  * 2.15: The Phonebook Step 10 => 
