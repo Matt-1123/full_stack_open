@@ -34,7 +34,7 @@
 
 ---
 
-## Part 2c
+## Part 2c - Getting data from server
 >json-server enables the use of server-side functionality in the development phase without the need to program any of it.
 
 >In the part0 example project, we already learned a way to fetch data from a server using JavaScript. The code in the example was fetching the data using XMLHttpRequest, otherwise known as an HTTP request made using an XHR object. This is a technique introduced in 1999, which every browser has supported for a good while now.
@@ -125,4 +125,41 @@ axios
 ### Total times, part 2c
 * Reading: 60 minutes
 * Exercises
-  * 2.11: The Phonebook Step 6 => 
+  * 2.11: The Phonebook Step 6 => 30 minutes
+
+---
+
+## Part 2d - Altering data in server
+
+### Sending data to the server
+>In REST terminology, we refer to individual data objects, such as the notes in our application, as resources. Every resource has a unique address associated with it - its URL. According to a general convention used by json-server, we would be able to locate an individual note at the resource URL notes/3, where 3 is the id of the resource. The notes URL, on the other hand, would point to a resource collection containing all the notes.
+
+* To send data in JSON format, which is typical, the request header must contain `Content-Type: application/json`
+
+* It's better to let the server generate ids for resources
+
+* Newly created resources are stored in the value of the data property of the response object.
+
+* Axios knows to set the Content-Type to application/json when the data in a POST request is a JS object.
+
+>Individual notes stored in the json-server backend can be modified in two different ways by making HTTP requests to the note's unique URL. We can either replace the entire note with an HTTP PUT request or only change some of the note's properties with an HTTP PATCH request.
+
+### Extracting Communication with the Backend into a Separate Module
+>The single-responsibility principle (SRP) is a computer programming principle that states that "A module should be responsible to one, and only one, actor." The term actor refers to a group (consisting of one or more stakeholders or users) that requires a change in the module. 
+
+* Promise chaining article to read: https://javascript.info/promise-chaining
+
+### Promises and Errors
+>The more common way of adding a handler for rejected promises is to use the catch method... The catch method can be used to define a handler function at the end of a promise chain, which is called once any promise in the chain throws an error and the promise becomes rejected.
+```
+axios
+  .get('http://...')
+  .then(response => response.data)
+  .then(data => {
+    // ...
+  })
+  .catch(error => {
+    console.log('fail')
+  })
+```
+>If the request fails, the event handler registered with the catch method gets called.
