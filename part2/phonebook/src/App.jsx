@@ -42,17 +42,30 @@ const App = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Check if name already exists
-    if (persons.some(person => person.name === newName)) {
-      alert(`${newName} is already added to phonebook`);
-      return;
-    }
-
     const nameObject = {
       name: newName,
       number: newNumber
     }
-    // setPersons(persons.concat(nameObject))
+
+    // Check if name already exists
+    const existingPerson = persons.find(person => person.name === newName)
+
+    if (existingPerson) {
+      if(window.confirm(`${newName} is already added to phonebook. Replace the old number with a new one?`)) {
+        personsService
+          .update(existingPerson.id, nameObject)
+          .then(returnedPerson => {
+            setPersons(persons.map(person => person.id === existingPerson.id ? returnedPerson : person
+            ))
+            setNewName('') 
+            setNewNumber('')
+          })
+          .catch(error => {
+            console.error('Error updating person: ', error)
+          })
+      } 
+      return
+    }
 
     personsService
       .create(nameObject)
