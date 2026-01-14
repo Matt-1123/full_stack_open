@@ -168,6 +168,6 @@ axios
 * Reading: 90 minutes
 * Exercises
   * 2.12: The Phonebook Step 7 => 20 minutes
-  * 2.13: The Phonebook Step 8 => 
-  * 2.14: The Phonebook Step 9 => 
+  * 2.13: The Phonebook Step 8 => already completed
+  * 2.14: The Phonebook Step 9 => 60 minutes
   * 2.15: The Phonebook Step 10 => 

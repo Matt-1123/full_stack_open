@@ -1,3 +1,4 @@
+import axios from 'axios'
 import { useEffect, useState } from 'react'
 import PersonForm from './components/PersonForm'
 import Persons from './components/Persons'
@@ -23,6 +24,20 @@ const App = () => {
   const handleNameChange = e => setNewName(e.target.value)
 
   const handleNumberChange = e => setNewNumber(e.target.value)
+
+  const handleDelete = (id, name) => {
+    if(window.confirm(`Delete ${name} ?`)) {
+      personsService
+      .deletePerson(id)
+      .then(() => {
+        setPersons(persons.filter(person => person.id !== id))
+      })
+      .catch(error => {
+        console.error('Error deleting person: ', error)
+      })
+    }
+    
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -71,7 +86,7 @@ const App = () => {
       />
 
       <h2>Numbers</h2>
-      <Persons personsToShow={personsToShow} />
+      <Persons personsToShow={personsToShow} handleDelete={handleDelete} />
     </div>
   )
 }
