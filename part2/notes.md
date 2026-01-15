@@ -126,7 +126,7 @@ axios
 * Reading: 60 minutes
 * Exercises
   * 2.11: The Phonebook Step 6 => 30 minutes
-
+* Total: 90 minutes
 ---
 
 ## Part 2d - Altering data in server
@@ -170,4 +170,11 @@ axios
   * 2.12: The Phonebook Step 7 => 20 minutes
   * 2.13: The Phonebook Step 8 => already completed
   * 2.14: The Phonebook Step 9 => 60 minutes
-  * 2.15: The Phonebook Step 10 => 
+  * 2.15: The Phonebook Step 10 => 45 minutes
+* Total: 215 minutes
+
+### Total times, part 2e
+* Reading: 15 minutes
+* Exercises
+  * 1.16: The Phonebook Step 11 =>
+  * 1.17: The Phonebook Step 11 => 
