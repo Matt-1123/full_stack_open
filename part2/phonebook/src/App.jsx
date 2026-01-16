@@ -12,7 +12,8 @@ const App = () => {
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [filterNames, setFilterNames] = useState('')
-  const [notificationMessage, setNotificationMessage] = useState(null)
+  const [successMessage, setSuccessMessage] = useState(null)
+  const [errorMessage, setErrorMessage] = useState(null)
 
   useEffect(() => {
       personsService
@@ -36,7 +37,11 @@ const App = () => {
         setPersons(persons.filter(person => person.id !== id))
       })
       .catch(error => {
-        console.error('Error deleting person: ', error)
+        console.error('Error deleting person: ', error);
+        setErrorMessage(`Information of ${name} has already been deleted from the server`);
+        setTimeout(() => {
+          setErrorMessage(null)
+        }, 5000)
       })
     }
     
@@ -63,15 +68,24 @@ const App = () => {
             ))
             setNewName('') 
             setNewNumber('')
-            setNotificationMessage(
+            setSuccessMessage(
               `Updated ${returnedPerson.name}'s number`
             )
             setTimeout(() => {
-              setNotificationMessage(null)
+              setSuccessMessage(null)
             }, 5000)
           })
           .catch(error => {
             console.error('Error updating person: ', error)
+            // Show error if contact already deleted (404 error)
+            if(error.response && error.response.status === 404) {
+              setErrorMessage(`Information of ${existingPerson.name} has already been deleted from the server`);
+              // Clear error message after 5 seconds
+              setTimeout(() => {
+                setErrorMessage(null)
+              }, 5000)
+            }
+            
           })
       } 
       return
@@ -84,11 +98,11 @@ const App = () => {
         // reset values of controlled input element
         setNewName('') 
         setNewNumber('')
-        setNotificationMessage(
+        setSuccessMessage(
           `Added ${returnedPerson.name}`
         )
         setTimeout(() => {
-          setNotificationMessage(null)
+          setSuccessMessage(null)
         }, 5000)
       })
   }
@@ -102,7 +116,7 @@ const App = () => {
   
   return (
     <div>
-      <Notification message={notificationMessage} />
+      <Notification successMessage={successMessage} errorMessage={errorMessage} />
       <h2>Phonebook</h2>
       <Search filterNames={filterNames} handleFilterNames={handleFilterNames} />
 
