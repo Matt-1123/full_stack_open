@@ -176,5 +176,5 @@ axios
 ### Total times, part 2e
 * Reading: 15 minutes
 * Exercises
-  * 1.16: The Phonebook Step 11 =>
-  * 1.17: The Phonebook Step 11 => 
+  * 2.16: The Phonebook Step 11 => 45 minutes
+  * 2.17: The Phonebook Step 11 => 

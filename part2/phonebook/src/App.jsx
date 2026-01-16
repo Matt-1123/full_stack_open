@@ -1,8 +1,10 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
+import Notification from './components/Notification'
 import PersonForm from './components/PersonForm'
 import Persons from './components/Persons'
 import Search from './components/Search'
+import './index.css'
 import personsService from './services/persons'
 
 const App = () => {
@@ -10,6 +12,7 @@ const App = () => {
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [filterNames, setFilterNames] = useState('')
+  const [notificationMessage, setNotificationMessage] = useState(null)
 
   useEffect(() => {
       personsService
@@ -50,6 +53,7 @@ const App = () => {
     // Check if name already exists
     const existingPerson = persons.find(person => person.name === newName)
 
+    // Update number (or cancel duplicate entry)
     if (existingPerson) {
       if(window.confirm(`${newName} is already added to phonebook. Replace the old number with a new one?`)) {
         personsService
@@ -59,6 +63,12 @@ const App = () => {
             ))
             setNewName('') 
             setNewNumber('')
+            setNotificationMessage(
+              `Updated ${returnedPerson.name}'s number`
+            )
+            setTimeout(() => {
+              setNotificationMessage(null)
+            }, 5000)
           })
           .catch(error => {
             console.error('Error updating person: ', error)
@@ -74,6 +84,12 @@ const App = () => {
         // reset values of controlled input element
         setNewName('') 
         setNewNumber('')
+        setNotificationMessage(
+          `Added ${returnedPerson.name}`
+        )
+        setTimeout(() => {
+          setNotificationMessage(null)
+        }, 5000)
       })
   }
 
@@ -86,6 +102,7 @@ const App = () => {
   
   return (
     <div>
+      <Notification message={notificationMessage} />
       <h2>Phonebook</h2>
       <Search filterNames={filterNames} handleFilterNames={handleFilterNames} />
 

@@ -1,0 +1,12 @@
+.notification {
+    background-color: #4E945D;
+    border: white;
+    border-color: #60B372;
+    border-style: solid;
+    border-width: 3px;
+    border-radius: 5px;
+    color: white;
+    padding: 8px 16px;
+    margin: 0;
+    font-size: 1.1rem;
+}
