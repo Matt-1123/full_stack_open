@@ -36,7 +36,10 @@ const App = () => {
       <form>
         find countries: <input value={searchValue} onChange={handleChange} />
       </form>
-      {searchValue && (
+      {searchValue && matchingCountries.length > 10 && (
+        <p>Too many matches. Specify another filter.</p>
+      )}
+      {searchValue && (matchingCountries.length < 10 && matchingCountries.length > 1) && (
         <div>
           {matchingCountries.map(country => (
             <div key={country.cca3}>{country.name.common}</div>
