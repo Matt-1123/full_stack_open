@@ -173,8 +173,16 @@ axios
   * 2.15: The Phonebook Step 10 => 45 minutes
 * Total: 215 minutes
 
+---
+
+## Part 2e - Adding styles to React app
+* When state is just one thing, e.g. a string or number (not an array), typically you will initialize it as `null`
+
 ### Total times, part 2e
-* Reading: 15 minutes
+* Reading: 30 minutes
 * Exercises
   * 2.16: The Phonebook Step 11 => 45 minutes
   * 2.17: The Phonebook Step 12 => 60 minutes
+  * 2.18: Data for countries, step 1 => 
+  * 2.19: Data for countries, step 2 =>
+  * 2.20: Data for countries, step 3 =>
