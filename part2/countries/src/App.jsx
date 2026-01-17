@@ -22,11 +22,27 @@ const App = () => {
     setSearchValue(event.target.value)
   }
 
+  // Filter countries based on search value
+  const matchingCountries = countries.filter(country => {
+    const searchLower = searchValue.toLowerCase()
+    const commonName = country.name.common.toLowerCase()
+    const officialName = country.name.official.toLowerCase()
+    
+    return commonName.includes(searchLower) || officialName.includes(searchLower)
+  })
+
   return (
     <div>
       <form>
         find countries: <input value={searchValue} onChange={handleChange} />
       </form>
+      {searchValue && (
+        <div>
+          {matchingCountries.map(country => (
+            <div key={country.cca3}>{country.name.common}</div>
+          ))}
+        </div>
+      )}
     </div>
   )
 }
