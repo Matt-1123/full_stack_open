@@ -6,6 +6,8 @@ const App = () => {
   const [searchValue, setSearchValue] = useState('')
   const [countries, setCountries] = useState([])
   const [matchingCountries, setMatchingCountries] = useState([])
+  const [manuallySelectedCountry, setManuallySelectedCountry] = useState('')
+  const [manuallySelectedCountryDetails, setManuallySelectedCountryDetails] = useState(null)
 
   // On initial render, populate state with info on all countries
   useEffect(() => {
@@ -39,12 +41,27 @@ const App = () => {
     setMatchingCountries(filtered)
   }, [searchValue, countries])
 
+  // Show country details when 'Show' button pressed
+  useEffect(() => {
+    if(manuallySelectedCountry !== '') {      
+      axios
+        .get(`https://studies.cs.helsinki.fi/restcountries/api/name/${manuallySelectedCountry}`)
+        .then(response => {
+          console.log(response.data)
+          setManuallySelectedCountryDetails(response.data)
+        })
+        .catch(error => {
+          console.error(error)
+        })
+    }
+  }, [manuallySelectedCountry])
+
   const handleChange = (event) => {
     setSearchValue(event.target.value)
   }
 
-  const handleShowCountry = () => {
-
+  const handleShowCountry = (name) => {
+    setManuallySelectedCountry(name)
   }
 
   return (
@@ -58,18 +75,21 @@ const App = () => {
       {searchValue && (matchingCountries.length < 10 && matchingCountries.length > 1) && (
         <div>
           {matchingCountries.map(country => (
-            <>
-              <p key={country.cca3}>
-                {country.name.common}
-                <button onClick={handleShowCountry} style={{ margin: '0 4px' }}>Show</button>
-              </p>
-            </>
-            
+            <p key={country.cca3}>
+              {country.name.common}
+              <button onClick={() => handleShowCountry(country.name.common)} style={{ margin: '0 4px' }}>Show</button>
+            </p>
           ))}
         </div>
       )}
       {searchValue && matchingCountries.length === 1 && (
         <CountryDetails country={matchingCountries[0]} />
+      )}
+      {manuallySelectedCountry 
+      && manuallySelectedCountryDetails 
+      && matchingCountries.length !== 1 
+      && (
+        <CountryDetails country={manuallySelectedCountryDetails} />
       )}
     </div>
   )

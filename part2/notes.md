@@ -183,6 +183,6 @@ axios
 * Exercises
   * 2.16: The Phonebook Step 11 => 45 minutes
   * 2.17: The Phonebook Step 12 => 60 minutes
-  * 2.18: Data for countries, step 1 => 
-  * 2.19: Data for countries, step 2 =>
+  * 2.18: Data for countries, step 1 => 120 minutes
+  * 2.19: Data for countries, step 2 => 90 minutes
   * 2.20: Data for countries, step 3 =>

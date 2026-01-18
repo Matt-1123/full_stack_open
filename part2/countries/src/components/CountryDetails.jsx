@@ -1,9 +1,5 @@
-import React from 'react'
-
-const CountryDetails = ({ country }) => {
-  
-  
-    return (
+const CountryDetails = ({ country }) => {  
+  return (
     <div>
       <h2>{country.name.common}</h2>
       <p><strong>Capital:</strong> {country.capital?.[0] || 'N/A'}</p>
