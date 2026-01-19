@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import Weather from './Weather';
 
 const CountryDetails = ({ country }) => {  
   const [weather, setWeather] = useState(null)
@@ -72,20 +73,12 @@ const CountryDetails = ({ country }) => {
         {weatherLoading ? (
           <p>Loading...</p>
         ) : (
-          <>
-            <p>
-              Temperature: {temp}
-              <span>&deg;</span> 
-              {tempUnit === 'C' ? ' Celsius' : ' Fahrenheit'}
-              <button onClick={handleToggleTempUnit} style={{ margin: '0 4px' }}>Show {tempUnit === 'C' ? ' Fahrenheit' : ' Celsius'}</button>
-            </p>
-            <img 
-              src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
-              alt={weather.weather[0].description}
-            />
-            <p>Wind: {weather.wind.speed} m/s</p>
-          </>
-          
+          <Weather 
+            weather={weather}
+            tempUnit={tempUnit}
+            temp={temp}
+            handleToggleTempUnit={handleToggleTempUnit}  
+          />
         )}
         
       </div>

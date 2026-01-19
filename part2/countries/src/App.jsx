@@ -1,6 +1,8 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import CountryDetails from './components/CountryDetails'
+import FindCountriesForm from './components/FindCountriesForm'
+import MatchingCountry from './components/MatchingCountry'
 
 const App = () => {
   const [searchValue, setSearchValue] = useState('')
@@ -66,19 +68,18 @@ const App = () => {
 
   return (
     <div>
-      <form>
-        find countries: <input value={searchValue} onChange={handleChange} />
-      </form>
+      <FindCountriesForm searchValue={searchValue} handleChange={handleChange} />
       {searchValue && matchingCountries.length > 10 && (
         <p>Too many matches. Specify another filter.</p>
       )}
       {searchValue && (matchingCountries.length < 10 && matchingCountries.length > 1) && (
         <div>
           {matchingCountries.map(country => (
-            <p key={country.cca3}>
-              {country.name.common}
-              <button onClick={() => handleShowCountry(country.name.common)} style={{ margin: '0 4px' }}>Show</button>
-            </p>
+            <MatchingCountry 
+              key={country.cca3} 
+              country={country} 
+              handleShowCountry={handleShowCountry} 
+            />
           ))}
         </div>
       )}
