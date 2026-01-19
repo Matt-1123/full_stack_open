@@ -5,6 +5,8 @@ const CountryDetails = ({ country }) => {
   const [weather, setWeather] = useState(null)
   const [weatherLoading, setWeatherLoading] = useState(true)
   const [weatherError, setWeatherError] = useState(null)
+  const [tempUnit, setTempUnit] = useState('C')
+  const [temp, setTemp] = useState(null)
    
   const countryName = country.name.common;
 
@@ -17,6 +19,7 @@ const CountryDetails = ({ country }) => {
       .then(response => {
         console.log('Weather data:', response.data)
         setWeather(response.data)
+        setTemp(response.data.main.temp)
         setWeatherLoading(false)
       })
       .catch(error => {
@@ -25,12 +28,33 @@ const CountryDetails = ({ country }) => {
         setWeatherLoading(false)
       })
   }, [countryName])
+
+  useEffect(() => {
+    if(!weather) return
+
+    if(tempUnit === 'F') {
+      const fahrenheit = celsiusToFahrenheit(temp);
+      setTemp(fahrenheit)
+    } else {
+      setTemp(weather.main.temp)
+    }
+  }, [tempUnit])
+
+  const celsiusToFahrenheit = (celsius) => {
+    const fahrenheit = (celsius * 9/5) + 32;
+    return fahrenheit;
+  }
+
+  const handleToggleTempUnit = () => {
+    const unit = tempUnit === 'C' ? 'F' : 'C'
+    setTempUnit(unit)
+  }
   
   return (
     <div>
       <h2>{countryName}</h2>
       <p><strong>Capital:</strong> {country.capital?.[0] || 'N/A'}</p>
-      <p><strong>Area:</strong> {country.area} km<sup>2</sup></p>
+      <p><strong>Area:</strong> {country.area.toLocaleString()} km<sup>2</sup></p>
       <h3>Languages</h3>
       <ul>
         {country.languages && Object.values(country.languages).map((lang, i) => (
@@ -45,12 +69,25 @@ const CountryDetails = ({ country }) => {
       />
       <div>
         <h3>Weather in {countryName}</h3>
-        <p>Temperature: {weather.main.temp}<span>&deg;</span> Celcius</p>
-        <img 
-          src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
-          alt={weather.weather[0].description}
-        />
-        <p>Wind: {weather.wind.speed} m/s</p>
+        {weatherLoading ? (
+          <p>Loading...</p>
+        ) : (
+          <>
+            <p>
+              Temperature: {temp}
+              <span>&deg;</span> 
+              {tempUnit === 'C' ? ' Celsius' : ' Fahrenheit'}
+              <button onClick={handleToggleTempUnit} style={{ margin: '0 4px' }}>Show {tempUnit === 'C' ? ' Fahrenheit' : ' Celsius'}</button>
+            </p>
+            <img 
+              src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
+              alt={weather.weather[0].description}
+            />
+            <p>Wind: {weather.wind.speed} m/s</p>
+          </>
+          
+        )}
+        
       </div>
     </div>
   )
