@@ -33,6 +33,40 @@
 
 * Install all up-to-date dependencies of a project in package.json by running `npm install`.
 
+### Web and Express
+```
+const express = require('express')
+const app = express()
+```
+
+Import express, which is a function that is used to create an Express application stored in the app variable.
+
+Define routes to the application. Define event handlers that are used to handle HTTP requests (e.g. GET, POST) made to certain paths, e.g. 
+
+```
+app.get('/api/notes', (request, response) => {
+  response.json(notes)
+})
+```
+
+The res.send method sends the HTTP response.
+```
+app.get('/', (request, response) => {
+  response.send('<h1>Hello World!</h1>')
+})
+```
+
+res.send() and res.json() are identical when an object or array is passed, but res.json will also convert non-objects, such as null and undefined, which are not valid JSON. 
+    * res.json eventually calls res.send, but firest makes these JSON conversions
+    * In the notes app, calling the json method sends the notes array that was passed to it as a **JSON formatted string**. Express automatically sets the Content-Type header of the response with the appropriate value of application/json.
+
+__node-repl__ - You can start the interactive node-repl by typing in node in the command line. The repl is particularly useful for testing how commands work while you're writing application code.
+>The node:repl module provides a Read-Eval-Print-Loop (REPL) implementation that is available both as a standalone program or includible in other applications. It can be accessed by typing `node` in the terminal.
+
+### Automatic Change Tracking
+
+
+
 ## Part 3b - Deploying app to internet
 
 ## Part 3c - Saving data to MongoDB
