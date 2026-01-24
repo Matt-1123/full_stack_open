@@ -153,7 +153,10 @@ __express.json()__ is a built-in middleware function in the Express.js framework
 >
 >A new body object containing the parsed data is populated on the request object after the middleware (i.e. req.body), or undefined if there was no body to parse, the Content-Type was not matched, or an error occurred.
 
-
+### Total times
+* Lecture notes: 2 hours
+* Exercises
+  * 3.1: Phonebook backend step 1 => 20 minutes
 
 ## Part 3b - Deploying app to internet
 
