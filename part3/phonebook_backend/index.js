@@ -1,4 +1,4 @@
-// const generateId = require('./utils/generateId')
+const generateId = require('./utils/generateId')
 const express = require('express')
 const app = express()
 
@@ -75,25 +75,25 @@ app.delete('/api/persons/:id', (request, response) => {
 })
 
 // POST a contact
-// app.post('/api/contacts', (request, response) => {
-//   const body = request.body
+app.post('/api/persons', (request, response) => {
+  const body = request.body
 
-//   if (!body.content) {
-//     return response.status(400).json({ 
-//       error: 'content missing' 
-//     })
-//   }
+  if (!body.name || !body.number) {
+    return response.status(400).json({ 
+      error: 'name and/or number missing' 
+    })
+  }
 
-//   const contact = {
-//     content: body.content,
-//     important: body.important || false,
-//     id: generateId(contacts),
-//   }
+  const contact = {
+    name: body.name,
+    number: body.number,
+    id: generateId(),
+  }
 
-//   contacts = contacts.concat(contact)
+  contacts = contacts.concat(contact)
 
-//   response.json(contact)
-// })
+  response.status(201).json(contact)
+})
 
 const PORT = 3001
 app.listen(PORT, () => {

@@ -157,6 +157,11 @@ __express.json()__ is a built-in middleware function in the Express.js framework
 * Lecture notes: 2 hours
 * Exercises
   * 3.1: Phonebook backend step 1 => 20 minutes
+  * 3.2: Phonebook backend step 2 => 10 minutes
+  * 3.3: Phonebook backend step 3 => 5 minutes
+  * 3.4: Phonebook backend step 4 => 15 minutes
+  * 3.5: Phonebook backend step 5 => 30 minutes
+  * 3.6: Phonebook backend step 6 => _ minutes
 
 ## Part 3b - Deploying app to internet
 
