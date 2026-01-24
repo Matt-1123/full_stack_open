@@ -35,20 +35,20 @@ app.get('/info', (request, response) => {
   const totalContacts = contacts.length;
   const dateOfRequest = new Date();
 
-  response.send(`
-    <p>Phonebook has info for ${totalContacts} people</p>
-    <p>${dateOfRequest}</p>
-  `)
+  response.send(
+    `<p>Phonebook has info for ${totalContacts} people<p>` +
+    `<p>${dateOfRequest}<p>`
+  )
 })
 
 // Fetch all contacts
-app.get('/api/contacts', (request, response) => {
+app.get('/api/persons', (request, response) => {
   console.log('request headers: ', request.headers)
   response.json(contacts)
 })
 
 // Fetch a single contact
-app.get('/api/contacts/:id', (request, response) => {
+app.get('/api/persons/:id', (request, response) => {
   const id = request.params.id
   const contact = contacts.find(contact => contact.id === id)
   
@@ -60,7 +60,7 @@ app.get('/api/contacts/:id', (request, response) => {
 })
 
 // Delete a contact
-app.delete('/api/contacts/:id', (request, response) => {
+app.delete('/api/persons/:id', (request, response) => {
   const id = request.params.id
   contacts = contacts.filter(contact => contact.id !== id)
 
