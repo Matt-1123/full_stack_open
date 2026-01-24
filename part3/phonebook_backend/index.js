@@ -62,9 +62,16 @@ app.get('/api/persons/:id', (request, response) => {
 // Delete a contact
 app.delete('/api/persons/:id', (request, response) => {
   const id = request.params.id
+  const initialLength = contacts.length;
   contacts = contacts.filter(contact => contact.id !== id)
 
-  response.status(204).end()
+  if (contacts.length === initialLength) {
+    // Contact to delete does not exist
+    response.statusMessage = 'This contact does not exist'
+    response.status(404).end()
+  } else {
+    response.status(204).end()
+  }  
 })
 
 // POST a contact
