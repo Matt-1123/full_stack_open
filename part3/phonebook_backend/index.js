@@ -67,7 +67,7 @@ app.delete('/api/persons/:id', (request, response) => {
 
   if (contacts.length === initialLength) {
     // Contact to delete does not exist
-    response.statusMessage = 'This contact does not exist'
+    response.statusMessage = 'Contact does not exist'
     response.status(404).end()
   } else {
     response.status(204).end()
@@ -81,6 +81,15 @@ app.post('/api/persons', (request, response) => {
   if (!body.name || !body.number) {
     return response.status(400).json({ 
       error: 'name and/or number missing' 
+    })
+  }
+
+  // Check if name already exists
+  const nameExists = contacts.some(contact => contact.name === body.name)
+  
+  if (nameExists) {
+    return response.status(400).json({ 
+      error: 'name must be unique' 
     })
   }
 
