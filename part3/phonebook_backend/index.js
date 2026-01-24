@@ -31,6 +31,16 @@ app.get('/', (request, response) => {
   response.send('<h1>Hello World!</h1>')
 })
 
+app.get('/info', (request, response) => {
+  const totalContacts = contacts.length;
+  const dateOfRequest = new Date();
+
+  response.send(`
+    <p>Phonebook has info for ${totalContacts} people</p>
+    <p>${dateOfRequest}</p>
+  `)
+})
+
 // Fetch all contacts
 app.get('/api/contacts', (request, response) => {
   console.log('request headers: ', request.headers)
