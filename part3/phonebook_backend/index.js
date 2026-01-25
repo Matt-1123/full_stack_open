@@ -2,8 +2,20 @@ const generateId = require('./utils/generateId')
 const express = require('express')
 const app = express()
 
+// Middleware
 app.use(express.json())
 
+const requestLogger = (request, response, next) => {
+  console.log('Method:', request.method)
+  console.log('Path:  ', request.path)
+  console.log('Body:  ', request.body)
+  console.log('---')
+  next()
+}
+
+app.use(requestLogger)
+
+// Data
 let contacts = [
   { 
       "id": "1",
@@ -27,17 +39,12 @@ let contacts = [
   }
 ]
 
-// Utils
-const logHeaders = (request, route) => console.log(`${route} request headers: `, request.headers)
-
 // Routes
 app.get('/', (request, response) => {
-  logHeaders(request, 'get(\'/\')');  
   response.send('<h1>Welcome to the Phonebook API</h1>');
 })
 
 app.get('/info', (request, response) => {
-  logHeaders(request, 'get(\'/info\')');
   const totalContacts = contacts.length;
   const dateOfRequest = new Date();
 
@@ -49,13 +56,11 @@ app.get('/info', (request, response) => {
 
 // Fetch all contacts
 app.get('/api/persons', (request, response) => {
-  logHeaders(request, 'get(\'/api/persons\')');
   response.json(contacts)
 })
 
 // Fetch a single contact
 app.get('/api/persons/:id', (request, response) => {
-  logHeaders(request, 'get(\'/api/persons:id\')');
   const id = request.params.id
   const contact = contacts.find(contact => contact.id === id)
   
@@ -68,7 +73,6 @@ app.get('/api/persons/:id', (request, response) => {
 
 // Delete a contact
 app.delete('/api/persons/:id', (request, response) => {
-  logHeaders(request, 'delete(\'/api/persons/:id\')');
   const id = request.params.id
   const initialLength = contacts.length;
   contacts = contacts.filter(contact => contact.id !== id)
@@ -86,9 +90,7 @@ app.delete('/api/persons/:id', (request, response) => {
 })
 
 // POST a contact
-app.post('/api/persons', (request, response) => {
-  logHeaders(request, 'post(\'/api/persons\')');
-  
+app.post('/api/persons', (request, response) => {  
   const body = request.body
 
   if (!body.name || !body.number) {
@@ -117,6 +119,14 @@ app.post('/api/persons', (request, response) => {
   response.status(201).json(contact)
 })
 
+// Middleware
+const unknownEndpoint = (request, response) => {
+  response.status(404).send({ error: 'unknown endpoint' })
+}
+
+app.use(unknownEndpoint)
+
+// Connect to server
 const PORT = 3001
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)

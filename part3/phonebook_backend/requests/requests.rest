@@ -20,3 +20,6 @@ content-type: application/json
     "name": "Test name",
     "number": "867-5309"
 }
+
+### 
+GET http://localhost:3001/unknown-endpoint
