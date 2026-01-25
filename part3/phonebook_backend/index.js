@@ -28,16 +28,16 @@ let contacts = [
 ]
 
 // Utils
-const logHeaders = () => console.log('request headers: ', request.headers)
+const logHeaders = (request, route) => console.log(`${route} request headers: `, request.headers)
 
 // Routes
-
 app.get('/', (request, response) => {
-  logHeaders();  
+  logHeaders(request, 'get(\'/\')');  
   response.send('<h1>Welcome to the Phonebook API</h1>');
 })
 
 app.get('/info', (request, response) => {
+  logHeaders(request, 'get(\'/info\')');
   const totalContacts = contacts.length;
   const dateOfRequest = new Date();
 
@@ -49,12 +49,13 @@ app.get('/info', (request, response) => {
 
 // Fetch all contacts
 app.get('/api/persons', (request, response) => {
-  console.log('request headers: ', request.headers)
+  logHeaders(request, 'get(\'/api/persons\')');
   response.json(contacts)
 })
 
 // Fetch a single contact
 app.get('/api/persons/:id', (request, response) => {
+  logHeaders(request, 'get(\'/api/persons:id\')');
   const id = request.params.id
   const contact = contacts.find(contact => contact.id === id)
   
@@ -67,6 +68,7 @@ app.get('/api/persons/:id', (request, response) => {
 
 // Delete a contact
 app.delete('/api/persons/:id', (request, response) => {
+  logHeaders(request, 'delete(\'/api/persons/:id\')');
   const id = request.params.id
   const initialLength = contacts.length;
   contacts = contacts.filter(contact => contact.id !== id)
@@ -85,6 +87,8 @@ app.delete('/api/persons/:id', (request, response) => {
 
 // POST a contact
 app.post('/api/persons', (request, response) => {
+  logHeaders(request, 'post(\'/api/persons\')');
+  
   const body = request.body
 
   if (!body.name || !body.number) {
