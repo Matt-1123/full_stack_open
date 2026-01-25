@@ -5,30 +5,36 @@ const app = express()
 app.use(express.json())
 
 let contacts = [
-    { 
-        "id": "1",
-        "name": "Arto Hellas", 
-        "number": "040-123456"
-    },
-    { 
-        "id": "2",
-        "name": "Ada Lovelace", 
-        "number": "39-44-5323523"
-    },
-    { 
-        "id": "3",
-        "name": "Dan Abramov", 
-        "number": "12-43-234345"
-    },
-    { 
-        "id": "4",
-        "name": "Mary Poppendieck", 
-        "number": "39-23-6423122"
-    }
+  { 
+      "id": "1",
+      "name": "Arto Hellas", 
+      "number": "040-123456"
+  },
+  { 
+      "id": "2",
+      "name": "Ada Lovelace", 
+      "number": "39-44-5323523"
+  },
+  { 
+      "id": "3",
+      "name": "Dan Abramov", 
+      "number": "12-43-234345"
+  },
+  { 
+      "id": "4",
+      "name": "Mary Poppendieck", 
+      "number": "39-23-6423122"
+  }
 ]
 
+// Utils
+const logHeaders = () => console.log('request headers: ', request.headers)
+
+// Routes
+
 app.get('/', (request, response) => {
-  response.send('<h1>Hello World!</h1>')
+  logHeaders();  
+  response.send('<h1>Welcome to the Phonebook API</h1>');
 })
 
 app.get('/info', (request, response) => {
@@ -68,7 +74,10 @@ app.delete('/api/persons/:id', (request, response) => {
   if (contacts.length === initialLength) {
     // Contact to delete does not exist
     response.statusMessage = 'Contact does not exist'
-    response.status(404).end()
+    response
+      .status(404)
+      .json({ error: 'Contact does not exist. Unable to delete.' })
+      .end()
   } else {
     response.status(204).end()
   }  
@@ -80,7 +89,7 @@ app.post('/api/persons', (request, response) => {
 
   if (!body.name || !body.number) {
     return response.status(400).json({ 
-      error: 'name and/or number missing' 
+      error: 'Name and number are required.' 
     })
   }
 
@@ -89,7 +98,7 @@ app.post('/api/persons', (request, response) => {
   
   if (nameExists) {
     return response.status(400).json({ 
-      error: 'name must be unique' 
+      error: 'Name must be unique' 
     })
   }
 
