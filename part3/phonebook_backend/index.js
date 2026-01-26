@@ -1,19 +1,20 @@
 const generateId = require('./utils/generateId')
 const express = require('express')
+const morgan = require('morgan')
 const app = express()
 
 // Middleware
 app.use(express.json())
+app.use(morgan('tiny'))
 
-const requestLogger = (request, response, next) => {
-  console.log('Method:', request.method)
-  console.log('Path:  ', request.path)
-  console.log('Body:  ', request.body)
-  console.log('---')
-  next()
-}
-
-app.use(requestLogger)
+// const requestLogger = (request, response, next) => {
+//   console.log('Method:', request.method)
+//   console.log('Path:  ', request.path)
+//   console.log('Body:  ', request.body)
+//   console.log('---')
+//   next()
+// }
+// app.use(requestLogger)
 
 // Data
 let contacts = [

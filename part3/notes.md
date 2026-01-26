@@ -222,7 +222,9 @@ app.use(unknownEndpoint)
   * 3.3: Phonebook backend step 3 => 5 minutes
   * 3.4: Phonebook backend step 4 => 15 minutes
   * 3.5: Phonebook backend step 5 => 30 minutes
-  * 3.6: Phonebook backend step 6 => _ minutes
+  * 3.6: Phonebook backend step 6 => 10 minutes
+  * 3.7: Phonebook backend step 7 => 10 minutes
+  * 3.8: Phonebook backend step 8 => _ minutes
 
 ## Part 3b - Deploying app to internet
 
