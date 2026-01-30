@@ -228,6 +228,15 @@ app.use(unknownEndpoint)
 
 ## Part 3b - Deploying app to internet
 
+### Same origin policy and CORS
+>The same-origin policy is a security mechanism implemented by browsers in order to prevent session hijacking among other security vulnerabilities.
+>
+>In order to enable legitimate cross-origin requests (requests to URLs that don't share the same origin) W3C came up with a mechanism called CORS(Cross-Origin Resource Sharing). According to Wikipedia:
+>
+>Cross-origin resource sharing (CORS) is a mechanism that allows restricted resources (e.g. fonts) on a web page to be requested from another domain outside the domain from which the first resource was served. A web page may freely embed cross-origin images, stylesheets, scripts, iframes, and videos. Certain "cross-domain" requests, notably Ajax requests, are forbidden by default by the same-origin security policy.
+
+By default, the JS code of an application running in a browser can only communicate with a server in the same origin (same protocol, host, and port). cors middleware fixes this.
+
 ## Part 3c - Saving data to MongoDB
 
 ## Part 3d - Validation and ESLint

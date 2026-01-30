@@ -1,4 +1,3 @@
-import axios from 'axios'
 import { useEffect, useState } from 'react'
 import Footer from './components/Footer'
 import Note from './components/Note'
@@ -80,7 +79,7 @@ const App = () => {
         ))}
       </ul>
       <form onSubmit={addNote}>
-        <input value={newNote} onChange={handleNoteChange} />
+        <input value={newNote} onChange={handleNoteChange} required />
         <button type="submit">save</button>
       </form>
       <Footer />
