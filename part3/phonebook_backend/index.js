@@ -50,11 +50,11 @@ let contacts = [
 ]
 
 // Routes
-app.get('/', (request, response) => {
+app.get('/api', (request, response) => {
   response.send('<h1>Welcome to the Phonebook API</h1>');
 })
 
-app.get('/info', (request, response) => {
+app.get('/api/info', (request, response) => {
   const totalContacts = contacts.length;
   const dateOfRequest = new Date();
 
@@ -131,7 +131,10 @@ app.post('/api/persons', (request, response) => {
 
 // Middleware
 const unknownEndpoint = (request, response) => {
-  response.status(404).send({ error: 'unknown endpoint' })
+  response.status(404).send({ 
+    error: 'unknown endpoint',
+    url: request.url
+  })
 }
 
 app.use(unknownEndpoint)

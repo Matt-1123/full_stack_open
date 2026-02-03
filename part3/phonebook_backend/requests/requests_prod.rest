@@ -1,0 +1,28 @@
+@baseUrl = https://full-stack-open-3xmk.onrender.com/api
+
+###
+GET {{baseUrl}}/
+
+###
+GET {{baseUrl}}/info
+
+### 
+GET {{baseUrl}}/persons
+
+### 
+GET {{baseUrl}}/persons/1
+
+### 
+DELETE {{baseUrl}}/persons/1
+
+###
+POST {{baseUrl}}/persons/
+content-type: application/json
+
+{
+    "name": "Test name",
+    "number": "867-5309"
+}
+
+### 
+GET {{baseUrl}}/unknown-endpoint

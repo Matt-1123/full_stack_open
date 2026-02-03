@@ -1,0 +1,28 @@
+@baseUrl = http://localhost:3001
+
+###
+GET {{baseUrl}}/
+
+###
+GET {{baseUrl}}/api/info
+
+### 
+GET {{baseUrl}}/api/persons
+
+### 
+GET {{baseUrl}}/api/persons/1
+
+### 
+DELETE {{baseUrl}}/api/persons/1
+
+###
+POST {{baseUrl}}/api/persons/
+content-type: application/json
+
+{
+    "name": "Test name",
+    "number": "867-5309"
+}
+
+### 
+GET {{baseUrl}}/unknown-endpoint
