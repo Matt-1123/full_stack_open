@@ -133,7 +133,7 @@ app.post('/api/persons', (request, response) => {
 const unknownEndpoint = (request, response) => {
   response.status(404).send({ 
     error: 'unknown endpoint',
-    url: request.url
+    url: `${request.protocol}://${request.get('host')}${request.originalUrl}`
   })
 }
 
