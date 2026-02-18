@@ -16,12 +16,12 @@ const App = () => {
   const [errorMessage, setErrorMessage] = useState(null)
 
   useEffect(() => {
-      personsService
-        .getAll()
-        .then(initialPersons => {
-          setPersons(initialPersons)
-        })
-    }, [])
+    personsService
+      .getAll()
+      .then(initialPersons => {
+        setPersons(initialPersons)
+      })
+  }, [])
 
   const handleFilterNames = e => setFilterNames(e.target.value)
   
@@ -32,19 +32,18 @@ const App = () => {
   const handleDelete = (id, name) => {
     if(window.confirm(`Delete ${name} ?`)) {
       personsService
-      .deletePerson(id)
-      .then(() => {
-        setPersons(persons.filter(person => person.id !== id))
-      })
-      .catch(error => {
-        console.error('Error deleting person: ', error);
-        setErrorMessage(`Information of ${name} has already been deleted from the server`);
-        setTimeout(() => {
-          setErrorMessage(null)
-        }, 5000)
-      })
-    }
-    
+        .deletePerson(id)
+        .then(() => {
+          setPersons(persons.filter(person => person.id !== id))
+        })
+        .catch(error => {
+          console.error('Error deleting person: ', error);
+          setErrorMessage(`Information of ${name} has already been deleted from the server`);
+          setTimeout(() => {
+            setErrorMessage(null)
+          }, 5000)
+        })
+    }  
   }
 
   const handleSubmit = (e) => {
