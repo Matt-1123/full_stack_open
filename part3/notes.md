@@ -238,5 +238,13 @@ app.use(unknownEndpoint)
 By default, the JS code of an application running in a browser can only communicate with a server in the same origin (same protocol, host, and port). cors middleware fixes this.
 
 ## Part 3c - Saving data to MongoDB
+MongoDB is a document database (rather than a relational database). Document databases differ from relational databases in how they organize data as well as in the query languages they support. Document databases are usually categorized under the NoSQL umbrella term.
+
+A MongoDB database can be used directly from JS code with the official MongoDB Node.js driver library, but it is simpler to use the Mongoose library which offers a higher-level API.
+
+Mongoose could be described as an object document mapper (ODM), and saving JavaScript objects as Mongo documents is straightforward with this library.
+
+The MongoDB URI for a cluster is the address of the database that we will supply to the MongoDB client library we will add to our application.
+
 
 ## Part 3d - Validation and ESLint
