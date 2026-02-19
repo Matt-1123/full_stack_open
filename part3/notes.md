@@ -246,5 +246,9 @@ Mongoose could be described as an object document mapper (ODM), and saving JavaS
 
 The MongoDB URI for a cluster is the address of the database that we will supply to the MongoDB client library we will add to our application.
 
+Document databases like Mongo are schemaless, meaning that the database itself does not care about the structure of the data that is stored in the database. It is possible to store documents with completely different fields in the same collection. The idea behind Mongoose is that the data stored in the database is given a schema at the level of the application that defines the shape of the documents stored in any given collection.
+
+In MongoDB, a cluster is the underlying infrastructure of servers that provides high availability and scalability, while a collection is a data structure used for storing documents, analogous to a table in a relational database. 
+
 
 ## Part 3d - Validation and ESLint
