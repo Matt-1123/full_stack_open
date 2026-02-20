@@ -1,7 +1,32 @@
-const generateId = require('./utils/generateId')
+require('dotenv').config()
 const express = require('express')
 const cors = require('cors')
+const mongoose = require('mongoose')
+const Note = require('./models/note')
+const generateId = require('./utils/generateId')
+
 const app = express()
+
+const password = process.argv[2]
+const url = process.env.MONGODB_URI
+
+mongoose.set('strictQuery',false)
+mongoose.connect(url, { family: 4 })
+
+const noteSchema = new mongoose.Schema({
+  content: String,
+  important: Boolean,
+})
+
+noteSchema.set('toJSON', {
+  transform: (document, returnedObject) => {
+    returnedObject.id = returnedObject._id.toString()
+    delete returnedObject._id
+    delete returnedObject.__v
+  }
+})
+
+const Note = mongoose.model('Note', noteSchema)
 
 app.use(express.json())
 app.use(express.static('dist')) //show static content - whenever Express gets an HTTP GET request it will first check if the dist directory contains a file corresponding to the request's address. If a correct file is found, Express will return it.
@@ -30,9 +55,10 @@ app.get('/', (request, response) => {
 })
 
 // Fetch all notes
-app.get('/api/notes', (request, response) => {
-  console.log('request headers: ', request.headers)
-  response.json(notes)
+app.get('/api/notes', (request, response) => {  
+  Note.find({}).then(notes => {
+    response.json(notes)
+  })
 })
 
 // Fetch a single note
@@ -57,6 +83,11 @@ app.delete('/api/notes/:id', (request, response) => {
 
 // POST a note
 app.post('/api/notes', (request, response) => {
+  // note.save().then(result => {
+  //   console.log('note saved!')
+  //   mongoose.connection.close()
+  // })
+  
   const body = request.body
 
   if (!body.content) {
@@ -76,7 +107,7 @@ app.post('/api/notes', (request, response) => {
   response.json(note)
 })
 
-const PORT = process.env.PORT || 3001
+const PORT = process.env.PORT
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
 })
