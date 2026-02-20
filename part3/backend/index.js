@@ -1,14 +1,10 @@
 require('dotenv').config()
 const express = require('express')
 const cors = require('cors')
-const mongoose = require('mongoose')
 const Note = require('./models/note')
 const generateId = require('./utils/generateId')
 
 const app = express()
-
-mongoose.set('strictQuery',false)
-mongoose.connect(url, { family: 4 })
 
 app.use(express.json())
 app.use(express.static('dist')) //show static content - whenever Express gets an HTTP GET request it will first check if the dist directory contains a file corresponding to the request's address. If a correct file is found, Express will return it.
