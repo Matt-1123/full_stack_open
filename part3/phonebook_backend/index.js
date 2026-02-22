@@ -1,7 +1,8 @@
-const generateId = require('./utils/generateId')
+require('dotenv').config()
 const express = require('express')
 const morgan = require('morgan')
 const cors = require('cors')
+const Person = require('./models/person')
 
 const app = express()
 
@@ -25,108 +26,80 @@ app.use(morgan(':method :url :status :res[content-length] - :response-time ms :r
 // }
 // app.use(requestLogger)
 
-// Data
-let contacts = [
-  { 
-      "id": "1",
-      "name": "Arto Hellas", 
-      "number": "040-123456"
-  },
-  { 
-      "id": "2",
-      "name": "Ada Lovelace", 
-      "number": "39-44-5323523"
-  },
-  { 
-      "id": "3",
-      "name": "Dan Abramov", 
-      "number": "12-43-234345"
-  },
-  { 
-      "id": "4",
-      "name": "Mary Poppendieck", 
-      "number": "39-23-6423122"
-  }
-]
 
 // Routes
+
 app.get('/api', (request, response) => {
   response.send('<h1>Welcome to the Phonebook API</h1>');
 })
 
-app.get('/api/info', (request, response) => {
-  const totalContacts = contacts.length;
-  const dateOfRequest = new Date();
+// app.get('/api/info', (request, response) => {
+//   const totalContacts = contacts.length;
+//   const dateOfRequest = new Date();
 
-  response.send(
-    `<p>Phonebook has info for ${totalContacts} people<p>` +
-    `<p>${dateOfRequest}<p>`
-  )
-})
+//   response.send(
+//     `<p>Phonebook has info for ${totalContacts} people<p>` +
+//     `<p>${dateOfRequest}<p>`
+//   )
+// })
 
 // Fetch all contacts
 app.get('/api/persons', (request, response) => {
-  response.json(contacts)
+  Person.find({}).then(people => {
+    if (people) {
+      response.json(people)
+    } else {
+      response.status(500).json({ error: 'Failed to fetch contacts' })
+    }
+  })
 })
 
 // Fetch a single contact
 app.get('/api/persons/:id', (request, response) => {
-  const id = request.params.id
-  const contact = contacts.find(contact => contact.id === id)
-  
-  if (contact) {
-    response.json(contact)
-  } else {
-    response.status(404).end()
-  }
+  Person.findById(request.params.id).then(contact => {
+    if (contact) {
+      response.json(contact)
+    } else {
+      response.status(404).json({ error: "Contact not found" })
+    }
+  })
 })
 
 // Delete a contact
 app.delete('/api/persons/:id', (request, response) => {
-  const id = request.params.id
-  const initialLength = contacts.length;
-  contacts = contacts.filter(contact => contact.id !== id)
-
-  if (contacts.length === initialLength) {
-    // Contact to delete does not exist
-    response.statusMessage = 'Contact does not exist'
-    response
-      .status(404)
-      .json({ error: 'Contact does not exist. Unable to delete.' })
-      .end()
-  } else {
-    response.status(204).end()
-  }  
+  Person.findByIdAndDelete(request.params.id).then(result => {
+    if (result) {
+      response.status(204).end()
+    } else {
+      response.status(404).json({ error: 'Contact does not exist. Unable to delete.' })
+    }
+  })
 })
 
 // POST a contact
-app.post('/api/persons', (request, response) => {  
-  const body = request.body
+app.post('/api/persons', (request, response) => {
+  const { name, number } = request.body
 
-  if (!body.name || !body.number) {
+  // Input validation
+  if (!name || !number) {
     return response.status(400).json({ 
       error: 'Name and number are required.' 
     })
   }
 
   // Check if name already exists
-  const nameExists = contacts.some(contact => contact.name === body.name)
-  
-  if (nameExists) {
-    return response.status(400).json({ 
-      error: 'Name must be unique' 
-    })
-  }
+  // const nameExists = contacts.some(contact => contact.name === body.name)
+  // if (nameExists) {
+  //   return response.status(400).json({ 
+  //     error: 'Name must be unique' 
+  //   })
+  // }
 
-  const contact = {
-    name: body.name,
-    number: body.number,
-    id: generateId(),
-  }
+  const person = new Person({ name, number })
 
-  contacts = contacts.concat(contact)
-
-  response.status(201).json(contact)
+  person.save().then(savedContact => {
+    response.status(201).json(savedContact)
+  })
 })
 
 // Middleware
