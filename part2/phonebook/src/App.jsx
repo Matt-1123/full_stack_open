@@ -114,9 +114,9 @@ const App = () => {
     : persons  
   
   return (
-    <div>
+    <div className='container'>
       <Notification successMessage={successMessage} errorMessage={errorMessage} />
-      <h2>Phonebook</h2>
+      <h1>Phonebook</h1>
       <Search filterNames={filterNames} handleFilterNames={handleFilterNames} />
 
       <h2>Add New</h2>
