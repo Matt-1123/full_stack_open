@@ -36,6 +36,7 @@ input {
     color: #fff;
     width: 50px;
     text-align: center;
+    cursor: pointer;
 }
 .delete {
     margin: 0 8px;
@@ -46,4 +47,5 @@ input {
     color: #fff;
     min-width: 50px;
     text-align: center;
+    cursor: pointer;
 }
