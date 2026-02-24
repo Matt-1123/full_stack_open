@@ -250,5 +250,53 @@ Document databases like Mongo are schemaless, meaning that the database itself d
 
 In MongoDB, a cluster is the underlying infrastructure of servers that provides high availability and scalability, while a collection is a data structure used for storing documents, analogous to a table in a relational database. 
 
+### Moving error handling into middleware
+>The error that is passed forward is given to the next function as a parameter. If next was called without an argument, then the execution would simply move onto the next route or middleware. If the next function is called with an argument, then the execution will continue to the error handler middleware.
 
-## Part 3d - Validation and ESLint
+```
+app.get('/api/notes/:id', (request, response, next) => {
+  Note.findById(request.params.id)
+    .then(note => {
+      if (note) {
+        response.json(note)
+      } else {
+        response.status(404).end()
+      }
+    })
+
+    .catch(error => next(error))
+})
+```
+
+>Express error handlers are middleware that are defined with a function that accepts four parameters. Our error handler looks like this:
+
+```
+const errorHandler = (error, request, response, next) => {
+  console.error(error.message)
+
+  if (error.name === 'CastError') {
+    return response.status(400).send({ error: 'malformatted id' })
+  } 
+
+  next(error)
+}
+
+// this has to be the last loaded middleware, also all the routes should be registered before this!
+app.use(errorHandler)
+```
+
+
+## Misc
+Internally, res.json() calls res.send() after stringifying the JSON data. 
+
+>When dealing with Promises, it's almost always a good idea to add error and exception handling. Otherwise, you will find yourself dealing with strange bugs.
+>
+>It's never a bad idea to print the object that caused the exception to the console in the error handler:
+
+```
+.catch(error => {
+
+  console.log(error)
+  response.status(400).send({ error: 'malformatted id' })
+})
+```

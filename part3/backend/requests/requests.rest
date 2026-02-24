@@ -1,10 +1,13 @@
+GET http://localhost:3001/api
+
+###
 GET http://localhost:3001/api/notes
 
 ### 
-GET http://localhost:3001/api/notes/69970efaa30493319d5416ff
+GET http://localhost:3001/api/notes/699cfbf0026e8346676c810d
 
 ### 
-DELETE http://localhost:3001/api/notes/1
+DELETE http://localhost:3001/api/notes/699cfbf0026e8346676c810d
 
 ###
 POST http://localhost:3001/api/notes/ HTTP/1.1
@@ -13,4 +16,13 @@ content-type: application/json
 {
     "content": "test",
     "important": true
+}
+
+###
+PUT http://localhost:3001/api/notes/699cfbf0026e8346676c810d HTTP/1.1
+content-Type: application/json
+
+{
+    "content": "update test",
+    "important": false
 }
