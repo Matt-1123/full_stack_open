@@ -36,22 +36,24 @@ app.get('/api', (request, response) => {
   response.send('<h1>Welcome to the Phonebook API</h1>');
 })
 
-// app.get('/api/info', (request, response) => {
-//   const totalContacts = contacts.length;
-//   const dateOfRequest = new Date();
-
-//   response.send(
-//     `<p>Phonebook has info for ${totalContacts} people<p>` +
-//     `<p>${dateOfRequest}<p>`
-//   )
-// })
+app.get('/api/info', (request, response, next) => {
+  Person.countDocuments({})
+    .then(count => {
+      const dateOfRequest = new Date();
+      response.send(
+        `<p>Phonebook has info for ${count} people</p>` +
+        `<p>${dateOfRequest}</p>`
+      )
+    })
+    .catch(error => next(error))
+})
 
 // Fetch all contacts
 app.get('/api/persons', (request, response, next) => {
   Person.find({})
     .then(people => {
       if (people) {
-        response.json(people)
+        response.status(200).json(people)
       } else {
         response.status(500).json({ error: 'Failed to fetch contacts' })
       }
@@ -65,7 +67,7 @@ app.get('/api/persons/:id', (request, response, next) => {
   Person.findById(request.params.id)
     .then(contact => {
       if (contact) {
-        response.json(contact)
+        response.status(200).json(contact)
       } else {
         response.status(404).json({ error: "Contact not found" })
       }
@@ -74,7 +76,7 @@ app.get('/api/persons/:id', (request, response, next) => {
 })
 
 // Delete a contact
-app.delete('/api/persons/:id', (request, response) => {
+app.delete('/api/persons/:id', (request, response, next) => {
   Person.findByIdAndDelete(request.params.id)
     .then(result => {
       if (result) {
@@ -87,7 +89,7 @@ app.delete('/api/persons/:id', (request, response) => {
 })
 
 // POST a contact
-app.post('/api/persons', (request, response) => {
+app.post('/api/persons', (request, response, next) => {
   const { name, number } = request.body
 
   // Input validation
@@ -97,19 +99,21 @@ app.post('/api/persons', (request, response) => {
     })
   }
 
-  // Check if name already exists
-  // const nameExists = contacts.some(contact => contact.name === body.name)
-  // if (nameExists) {
-  //   return response.status(400).json({ 
-  //     error: 'Name must be unique' 
-  //   })
-  // }
+  Person.findOne({ name })
+    .then(existingPerson => {
+      if (existingPerson) {
+        existingPerson.number = number
 
-  const person = new Person({ name, number })
+        return existingPerson.save().then(updatedContact => {
+          response.status(200).json(updatedContact)
+        })
+      }
 
-  person.save()
-    .then(savedContact => {
-      response.status(201).json(savedContact)
+      const person = new Person({ name, number })
+
+      return person.save().then(savedContact => {
+        response.status(201).json(savedContact)
+      })
     })
     .catch(error => next(error))
 })
