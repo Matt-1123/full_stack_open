@@ -118,6 +118,31 @@ app.post('/api/persons', (request, response, next) => {
     .catch(error => next(error))
 })
 
+// Update a contact
+app.put('/api/persons/:id', (request, response, next) => {
+  const { name, number } = request.body
+
+  if (!name || !number) {
+    return response.status(400).json({
+      error: 'Name and number are required.'
+    })
+  }
+
+  Person.findByIdAndUpdate(
+    request.params.id,
+    { name, number },
+    { new: true, runValidators: true, context: 'query' }
+  )
+    .then(updatedContact => {
+      if (updatedContact) {
+        response.status(200).json({ message: 'Contact successfully updated.', updatedContact })
+      } else {
+        response.status(404).json({ error: 'Contact not found' })
+      }
+    })
+    .catch(error => next(error))
+})
+
 // ================== //
 // === Middleware === //
 // ================== //
