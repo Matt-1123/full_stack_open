@@ -83,6 +83,11 @@ const App = () => {
               setTimeout(() => {
                 setErrorMessage(null)
               }, 5000)
+            } else {
+              setErrorMessage('Error updating contact')
+              setTimeout(() => {
+                setErrorMessage(null)
+              }, 5000)
             }
             
           })
@@ -102,6 +107,14 @@ const App = () => {
         )
         setTimeout(() => {
           setSuccessMessage(null)
+        }, 5000)
+      })
+      .catch(error => {
+        const errorMessage = error.response.data.error
+        console.error(errorMessage)
+        setErrorMessage(errorMessage)
+        setTimeout(() => {
+          setErrorMessage(null)
         }, 5000)
       })
   }
