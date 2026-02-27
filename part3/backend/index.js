@@ -49,21 +49,19 @@ app.delete('/api/notes/:id', (request, response, next) => {
 })
 
 // POST a note
-app.post('/api/notes', (request, response) => {
-  const body = request.body
-
-  if (!body.content) {
-    return response.status(400).json({ error: 'content missing' })
-  }
+app.post('/api/notes', (request, response, next) => {
+  const { content, important } = request.body
 
   const note = new Note({
-    content: body.content,
-    important: body.important || false,
+    content,
+    important: important || false,
   })
 
-  note.save().then(savedNote => {
-    response.json(savedNote)
-  })
+  note.save()
+    .then(savedNote => {
+      response.json(savedNote)
+    })
+    .catch(error => next(error))
 })
 
 // Update a note
@@ -97,13 +95,16 @@ const unknownEndpoint = (request, response) => {
 
 app.use(unknownEndpoint)
 
-// Handle errors
+// Handler errors
 const errorHandler = (error, request, response, next) => {
   console.error(error.message)
 
   if (error.name === 'CastError') {
     return response.status(400).send({ error: 'malformatted id' })
-  } 
+
+  } else if (error.name === 'ValidationError') {
+    return response.status(400).json({ error: error.message })
+  }
 
   next(error)
 }
@@ -112,7 +113,7 @@ app.use(errorHandler)
 
 
 // ==================== //
-const PORT = process.env.PORT
+const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
 })
