@@ -99,21 +99,11 @@ app.post('/api/persons', (request, response, next) => {
     })
   }
 
-  Person.findOne({ name })
-    .then(existingPerson => {
-      if (existingPerson) {
-        existingPerson.number = number
+  const person = new Person({ name, number })
 
-        return existingPerson.save().then(updatedContact => {
-          response.status(200).json(updatedContact)
-        })
-      }
-
-      const person = new Person({ name, number })
-
-      return person.save().then(savedContact => {
-        response.status(201).json(savedContact)
-      })
+  return person.save()
+    .then(savedContact => {
+      response.status(201).json(savedContact)
     })
     .catch(error => next(error))
 })
