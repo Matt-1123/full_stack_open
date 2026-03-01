@@ -1,10 +1,17 @@
 const PersonForm = ({ handleSubmit, newName, handleNameChange, newNumber, handleNumberChange }) => {
+  const styles = {
+    input: {
+      marginBottom: '0.5em'
+    }
+  }
+  
   return (
     <>
-        <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit}>
         <div>
           name: 
           <input 
+            style={styles.input}
             value={newName} 
             onChange={handleNameChange} 
           />
@@ -12,6 +19,7 @@ const PersonForm = ({ handleSubmit, newName, handleNameChange, newNumber, handle
         <div>
           number: 
           <input 
+            style={styles.input}
             value={newNumber} 
             onChange={handleNumberChange} 
           />
