@@ -285,6 +285,18 @@ const errorHandler = (error, request, response, next) => {
 app.use(errorHandler)
 ```
 
+## Part 3d - Validation and ESLint
+
+### Lint
+>In the JavaScript universe, the current leading tool for static analysis (aka "linting") is ESlint.
+
+>Let's add ESLint as a development dependency for the backend. Development dependencies are tools that are only needed during the development of the application. For example, tools related to testing are such dependencies. When the application is run in production mode, development dependencies are not needed.
+
+`npm install eslint @eslint/js --save-dev`
+
+>After this we can initialize a default ESlint configuration with the command: `npx eslint --init`
+
+>Note for Windows users: The linebreak style is set to unix in the [Eslint styles plugin] style rules. It is recommended to use Unix-style linebreaks (\n) regardless of your operating system, as they are compatible with most modern operating systems.
 
 ## Misc
 Internally, res.json() calls res.send() after stringifying the JSON data. 
@@ -300,3 +312,4 @@ Internally, res.json() calls res.send() after stringifying the JSON data.
   response.status(400).send({ error: 'malformatted id' })
 })
 ```
+
