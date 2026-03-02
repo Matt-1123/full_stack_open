@@ -33,13 +33,13 @@ app.use(morgan(':method :url :status :res[content-length] - :response-time ms :r
 // === Route Handlers === //
 // ====================== //
 app.get('/api', (request, response) => {
-  response.send('<h1>Welcome to the Phonebook API</h1>');
+  response.send('<h1>Welcome to the Phonebook API</h1>')
 })
 
 app.get('/api/info', (request, response, next) => {
   Person.countDocuments({})
     .then(count => {
-      const dateOfRequest = new Date();
+      const dateOfRequest = new Date()
       response.send(
         `<p>Phonebook has info for ${count} people</p>` +
         `<p>${dateOfRequest}</p>`
@@ -69,7 +69,7 @@ app.get('/api/persons/:id', (request, response, next) => {
       if (contact) {
         response.status(200).json(contact)
       } else {
-        response.status(404).json({ error: "Contact not found" })
+        response.status(404).json({ error: 'Contact not found' })
       }
     })
     .catch(error => next(error))
