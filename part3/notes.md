@@ -298,6 +298,8 @@ app.use(errorHandler)
 
 >Note for Windows users: The linebreak style is set to unix in the [Eslint styles plugin] style rules. It is recommended to use Unix-style linebreaks (\n) regardless of your operating system, as they are compatible with most modern operating systems.
 
+> Many companies define coding standards that are enforced throughout the organization through the ESlint configuration file. It is not recommended to keep reinventing the wheel over and over again, and it can be a good idea to adopt a ready-made configuration from someone else's project into yours. Recently many projects have adopted the Airbnb Javascript style guide by taking Airbnb's [ESlint configuration](https://github.com/airbnb/javascript/tree/master/packages/eslint-config-airbnb) into use.
+
 ## Misc
 Internally, res.json() calls res.send() after stringifying the JSON data. 
 
