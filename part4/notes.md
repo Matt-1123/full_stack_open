@@ -1,10 +1,22 @@
-# Part 3 - Programming a server with NodeJS and Express
+# Part 4 - Programming a server with NodeJS and Express
 
-## Part 3a - Structure of backend application, introduction to testing
+## Part 4a - Structure of backend application, introduction to testing
+controllers/notes.js: 
+```
+const notesRouter = require('express').Router()
+...
+notesRouter.get('/:id', (request, response, next) => {
+  ...
+}
+```
 
-## Part 3b - Testing the backend
+app.js: `app.use('/api/notes', notesRouter)`
 
-## Part 3c - User administration
+A router object is an isolated instance of middleware and routes. You can think of it as a “mini-application,” capable only of performing middleware and routing functions. Every Express application has a built-in app router.
 
-## Part 3d - Token authentication
+## Part 4b - Testing the backend
+
+## Part 4c - User administration
+
+## Part 4d - Token authentication
 
