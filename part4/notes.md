@@ -58,6 +58,13 @@ The second way of exporting may be preferable if only a small portion of the exp
 #### Finding the usages of your exports with VS Code
 >VS Code has a handy feature that allows you to see where your modules have been exported. This can be very helpful for refactoring... If you right-click on a variable in the location it is exported from and select "Find All References", it will show you everywhere the variable is imported. 
 
+### Testing Node applications
+>There are a large number of test libraries, or test runners, available for JavaScript. The old king of test libraries is Mocha, which was replaced a few years ago by Jest. A newcomer to the libraries is Vitest, which bills itself as a new generation of test libraries.
+>
+>Nowadays, Node also has a built-in test library node:test, which is well suited to the needs of the course.
+
+>In the course, we follow the convention where test file names end with .test.js, as the node:test testing library automatically executes test files named this way.
+
 ## Part 4b - Testing the backend
 
 ## Part 4c - User administration

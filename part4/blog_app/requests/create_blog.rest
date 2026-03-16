@@ -2,7 +2,7 @@ POST http://localhost:3001/api/blogs
 Content-Type: application/json
 
 {
-  "title": "Blog Title",
+  "title": "VS Code REST test",
   "author": "Matt Rogers",
   "url": "testurl839028932.com",
   "likes": 0
