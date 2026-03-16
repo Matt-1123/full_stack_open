@@ -66,6 +66,9 @@ The second way of exporting may be preferable if only a small portion of the exp
 >In the course, we follow the convention where test file names end with .test.js, as the node:test testing library automatically executes test files named this way.
 
 ## Part 4b - Testing the backend
+* __integration testing__ - Integration testing is a form of software testing in which multiple software components, modules, or services are tested together to verify they work as expected when combined. The focus is on testing the interactions and data exchange between integrated parts, rather than testing components in isolation. Integration testing describes how tests are run at the integration-level to contrast testing at the unit or system level. 
+
+>The convention in Node is to define the execution mode of the application with the NODE_ENV environment variable. It is common practice to define separate modes for development and testing.
 
 ## Part 4c - User administration
 
