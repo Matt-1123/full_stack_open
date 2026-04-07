@@ -70,6 +70,12 @@ The second way of exporting may be preferable if only a small portion of the exp
 
 >The convention in Node is to define the execution mode of the application with the NODE_ENV environment variable. It is common practice to define separate modes for development and testing.
 
+>It would be better to run our tests using a database that is installed and running on the developer's local machine. The optimal solution would be to have every test execution use a separate database. This is "relatively simple" to achieve by running Mongo in-memory or by using Docker containers.
+
+>The documentation for supertest says the following: "if the server is not already listening for connections then it is bound to an ephemeral port for you so there is no need to keep track of ports."
+>
+>In other words, supertest takes care that the application being tested is started at the port that it uses internally. This is one of the reasons why we are going with supertest instead of something like axios, as we do not need to run another instance of the server separately before beginning to test. The other reason is that supertest provides functions like expect(), which makes testing easier.
+
 ## Part 4c - User administration
 
 ## Part 4d - Token authentication
